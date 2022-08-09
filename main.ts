@@ -1,11 +1,18 @@
-function drawRect (x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, x4: number, y4: number) {
-    lineDis = Math.abs(x1 - x2)
-    for (let index = 0; index <= lineDis; index++) {
-        scene.backgroundImage().drawLine(0, 0, 0, 0, 8)
+function drawRect2 (x1: number, y1: number, x2: number, y2: number) {
+    lineDisX = x1 - x2
+    LineDisY = y1 - y2
+    for (let index = 0; index <= Math.abs(lineDisX); index++) {
+        scene.backgroundImage().drawLine(x1 + x1 / lineDisX * index, y1 + y1 / LineDisY * index, x1 + x1 / lineDisX * index + Math.abs(x1 + x1 / lineDisX * index - centerX), y1 + y1 / LineDisY * index + Math.abs(y1 + y1 / LineDisY * index - centerY), 8)
     }
 }
+function drawRect (x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, x4: number, y4: number) {
+	
+}
 let angle = 0
-let lineDis = 0
+let LineDisY = 0
+let lineDisX = 0
+let centerY = 0
+let centerX = 0
 stats.turnStats(true)
 scene.setBackgroundImage(img`
     1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
@@ -130,8 +137,8 @@ scene.setBackgroundImage(img`
     1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
     `)
 let numLanes = 4
-let centerX = 80
-let centerY = 60
+centerX = 80
+centerY = 60
 let sides = 3
 let calculatedAngle = spriteutils.degreesToRadians(360 / sides)
 game.onUpdate(function () {
@@ -260,11 +267,16 @@ game.onUpdate(function () {
     for (let distance = 0; distance <= 220 - sides * 3; distance++) {
         angle = spriteutils.degreesToRadians(0 - sides % 2 * 90.01)
         for (let index = 0; index <= sides - 1; index++) {
-            scene.backgroundImage().drawLine(Math.cos(angle) * distance + centerX, Math.sin(angle) * distance + centerY, Math.cos(calculatedAngle + angle) * distance + centerX, Math.sin(calculatedAngle + angle) * distance + centerY, 8)
-            for (let index2 = 0; index2 <= numLanes - 1; index2++) {
-            	
-            }
             angle += calculatedAngle
+        }
+    }
+    sides += 5
+    drawRect2(sides, centerY, centerX, sides)
+    if (Math.percentChance(1)) {
+        if (Math.percentChance(20)) {
+            sides = randint(-100, 100)
+            centerX = randint(0, 160)
+            centerY = randint(0, 120)
         }
     }
 })
