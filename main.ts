@@ -1,4 +1,11 @@
+function drawRect (x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, x4: number, y4: number) {
+    lineDis = Math.abs(x1 - x2)
+    for (let index = 0; index <= lineDis; index++) {
+        scene.backgroundImage().drawLine(0, 0, 0, 0, 8)
+    }
+}
 let angle = 0
+let lineDis = 0
 stats.turnStats(true)
 scene.setBackgroundImage(img`
     1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
@@ -251,13 +258,13 @@ game.onUpdate(function () {
         1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
         `)
     for (let distance = 0; distance <= 220 - sides * 3; distance++) {
-        angle = spriteutils.degreesToRadians(0 - sides % 2 * 90)
+        angle = spriteutils.degreesToRadians(0 - sides % 2 * 90.01)
         for (let index = 0; index <= sides - 1; index++) {
             scene.backgroundImage().drawLine(Math.cos(angle) * distance + centerX, Math.sin(angle) * distance + centerY, Math.cos(calculatedAngle + angle) * distance + centerX, Math.sin(calculatedAngle + angle) * distance + centerY, 8)
-            angle += calculatedAngle
             for (let index2 = 0; index2 <= numLanes - 1; index2++) {
             	
             }
+            angle += calculatedAngle
         }
     }
 })
