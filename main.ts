@@ -1,14 +1,20 @@
 function drawRect2 (x1: number, y1: number, x2: number, y2: number) {
-    lineDisX = x1 - x2
-    LineDisY = y1 - y2
-    for (let index = 0; index <= Math.abs(lineDisX); index++) {
-        scene.backgroundImage().drawLine(x1 + x1 / lineDisX * index, y1 + y1 / LineDisY * index, x1 + x1 / lineDisX * index + centerX, y1 + y1 / LineDisY * index + centerY, 8)
+    lineDisX = x2 - x1
+    LineDisY = y2 - y1
+    linePosX = x1
+    LinePosY = y1
+    for (let index = 0; index <= Math.abs(lineDisX + LineDisY); index++) {
+        linePosX += (lineDisX + LineDisY) / x1
+        LinePosY += (lineDisX + LineDisY) / y1
+        scene.backgroundImage().drawLine(linePosX, LinePosY, linePosX + (linePosX - centerX), LinePosY + (LinePosY - centerY), 8)
     }
 }
 function drawRect (x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, x4: number, y4: number) {
 	
 }
 let angle = 0
+let LinePosY = 0
+let linePosX = 0
 let LineDisY = 0
 let lineDisX = 0
 let centerY = 0
@@ -270,8 +276,12 @@ game.onUpdate(function () {
             angle += calculatedAngle
         }
     }
-    drawRect2(60, 80, 80, 80)
+    drawRect2(55, 75, 65, 85)
 })
 forever(function () {
 	
+})
+forever(function () {
+    centerX += controller.dx()
+    centerY += controller.dy()
 })
