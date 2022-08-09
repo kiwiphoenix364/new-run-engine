@@ -276,14 +276,13 @@ game.onUpdate(function () {
             angle += calculatedAngle
         }
     }
-    for (let index = 0; index < 400; index++) {
-        drawRect2(75, 60, 95, 80)
-    }
+    centerX += controller.dx()
+    centerY += controller.dy()
+    drawRect2(80, 40, 80, 80)
 })
 forever(function () {
 	
 })
 forever(function () {
-    centerX += controller.dx()
-    centerY += controller.dy()
+	
 })
