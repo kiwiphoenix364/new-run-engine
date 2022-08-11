@@ -1,22 +1,27 @@
 function drawRect2 (x1: number, y1: number, x2: number, y2: number) {
     lineDisX = x2 - x1
-    LineDisY = y2 - y1
+    lineDisY = y2 - y1
     linePosX = x1
-    LinePosY = y1
-    for (let index = 0; index <= Math.abs(Math.max(lineDisX, LineDisY)); index++) {
-        linePosX += lineDisX / x1
-        LinePosY += LineDisY / y1
-        scene.backgroundImage().drawLine(linePosX, LinePosY, linePosX + (linePosX - centerX), LinePosY + (LinePosY - centerY), 8)
-    }
+    linePosY = y1
+    linePosX2 = linePosX + lineDisX
+    linePosY2 = linePosY + lineDisY
+    scene.backgroundImage().drawLine(linePosX, linePosY, linePosX + (linePosX - centerX) * polyLength, linePosY + (linePosY - centerY) * polyLength, 8)
+    scene.backgroundImage().drawLine(linePosX2, linePosY2, linePosX2 + (linePosX2 - centerX) * polyLength, linePosY2 + (linePosY2 - centerY) * polyLength, 8)
+    scene.backgroundImage().drawLine(linePosX, linePosY, linePosX2, linePosY2, 8)
+    scene.backgroundImage().drawLine(linePosX + (linePosX - centerX) * polyLength, linePosY + (linePosY - centerY) * polyLength, linePosX2 + (linePosX2 - centerX) * polyLength, linePosY2 + (linePosY2 - centerY) * polyLength, 8)
 }
 function drawRect (x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, x4: number, y4: number) {
 	
 }
 let angle = 0
-let LinePosY = 0
+let distance = 0
+let linePosY2 = 0
+let linePosX2 = 0
+let linePosY = 0
 let linePosX = 0
-let LineDisY = 0
+let lineDisY = 0
 let lineDisX = 0
+let polyLength = 0
 let centerY = 0
 let centerX = 0
 stats.turnStats(true)
@@ -146,6 +151,7 @@ let numLanes = 4
 centerX = 80
 centerY = 60
 let sides = 3
+polyLength = 1
 let calculatedAngle = spriteutils.degreesToRadians(360 / sides)
 game.onUpdate(function () {
     scene.setBackgroundImage(img`
@@ -270,19 +276,15 @@ game.onUpdate(function () {
         1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
         1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
         `)
-    for (let distance = 0; distance <= 220 - sides * 3; distance++) {
-        angle = spriteutils.degreesToRadians(0 - sides % 2 * 90.01)
+    distance = 5
+    for (let index2 = 0; index2 <= 3; index2++) {
+        angle = spriteutils.degreesToRadians(0 - sides % 2 * 89.99999999999999)
         for (let index = 0; index <= sides - 1; index++) {
+            drawRect2(Math.cos(angle) * distance + 80, Math.sin(angle) * distance + 60, Math.cos(angle + calculatedAngle) * distance + 80, Math.sin(angle + calculatedAngle) * distance + 60)
             angle += calculatedAngle
         }
+        distance = Math.sin(angle) * distance / (Math.cos(angle) * distance)
     }
     centerX += controller.dx()
     centerY += controller.dy()
-    drawRect2(80, 40, 80, 80)
-})
-forever(function () {
-	
-})
-forever(function () {
-	
 })
